@@ -1,0 +1,12 @@
+__pycache__/
+output/
+output/*
+*.pyc
+.env
+tempCodeRunnerFile.py
+todo.txt
+error_logs/
+error_logs/*
+test_sbert_model.py
+how_much_remaning.txt
+NotebookLM Mind Map.png

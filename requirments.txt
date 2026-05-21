@@ -1,0 +1,9 @@
+botasaurus
+pandas
+langchain
+langchain-google-genai
+pdfplumber
+sentence_transformers
+langchain-google-vertexai
+requests
+beautifulsoup4
