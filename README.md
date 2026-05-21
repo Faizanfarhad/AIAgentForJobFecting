@@ -1,5 +1,7 @@
 # AI Job Fetcher
 
+## Status :- In Progress 
+
 This project contains a simple job-fetch automation helper for Naukri and Indeed search results.
 
 ## New helper
