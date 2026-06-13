@@ -1,20 +1,21 @@
 # AI Job Fetcher
 
-A simple Python tool to fetch job listings from Naukri or Indeed and optionally score them against your resume.
+A simple Python project to fetch job listings from Naukri or Indeed and score them against a resume.
 
-## What this project does
+## Why this project
 
-- Scrapes job listings from Naukri or Indeed search results
-- Saves job listings to `output/job_listings.json` and `output/job_listings.csv`
-- Scores jobs against a resume using SBERT embeddings
-- Saves a ranked shortlist to `output/shortlist.json`
-- Includes a local interactive mode via `agent.py`
+This repository helps you:
+
+- scrape job postings from Naukri or Indeed search results
+- save job listings to JSON and CSV files
+- rank job postings by how well they match your resume using SBERT
+- run a local menu-driven assistant with `agent.py`
 
 ## Requirements
 
 - Python 3.8 or newer
 - `pip`
-- Internet access for web scraping and model downloads
+- Internet access for scraping and model downloads
 
 ## Install dependencies
 
@@ -22,11 +23,13 @@ A simple Python tool to fetch job listings from Naukri or Indeed and optionally 
 pip install -r requirments.txt
 ```
 
-> Note: This repository uses packages such as `botasaurus`, `pdfplumber`, `sentence_transformers`, `requests`, `beautifulsoup4`, and `langchain`.
+> Use the existing `requirments.txt` file in the repository.
 
-## 1. Fetch job listings
+## How to use this project
 
-Use `job_fetcher.py` with a search query, optional location, and source.
+### 1. Fetch job listings only
+
+Run `job_fetcher.py` with your search query, location, and source.
 
 ```bash
 python job_fetcher.py "data scientist" --location "Bangalore" --source naukri --pages 1
@@ -38,45 +41,45 @@ Example for Indeed:
 python job_fetcher.py "software intern" --location "Mumbai" --source indeed --pages 1
 ```
 
-### Output files
+This saves jobs to:
 
 - `output/job_listings.json`
 - `output/job_listings.csv`
 
-## 2. Score jobs with a resume
+### 2. Fetch jobs and score them with your resume
 
-Use `pipeline_runner.py` to fetch jobs and score them in one command.
+Use `pipeline_runner.py` to run both fetching and scoring in one command.
 
 ```bash
 python pipeline_runner.py "machine learning" --location "Delhi" --source naukri --pages 1 --resume path/to/resume.pdf --top 5 --out output/shortlist.json
 ```
 
-This command will:
+What this does:
 
-1. Fetch jobs from the selected source
-2. Load your resume from the provided file
-3. Compute SBERT similarity scores
-4. Save the top matching jobs to `output/shortlist.json`
+1. fetches jobs from Naukri or Indeed
+2. loads your resume from a PDF or text file
+3. computes SBERT similarity between resume and jobs
+4. saves the top matching jobs to `output/shortlist.json`
 
-## 3. Fetch only
+### 3. Fetch jobs only with pipeline_runner
 
-If you only want to fetch jobs without scoring:
+If you already want to fetch jobs but not score them yet:
 
 ```bash
 python pipeline_runner.py "machine learning" --location "Delhi" --source naukri --pages 1 --fetch-only
 ```
 
-## 4. Score existing results only
+### 4. Score existing job results only
 
-If you already have `output/job_listings.json`, score those jobs directly:
+When you already have `output/job_listings.json`, score those jobs directly with this command:
 
 ```bash
 python pipeline_runner.py --score-only --jobs-json output/job_listings.json --resume path/to/resume.pdf --top 5 --out output/shortlist.json
 ```
 
-## 5. Use local interactive mode
+### 5. Run the local interactive agent
 
-Run `agent.py` for a simple menu-driven interface:
+Start `agent.py` if you want a simple menu-driven flow:
 
 ```bash
 python agent.py
@@ -84,33 +87,39 @@ python agent.py
 
 Then choose one of the options:
 
-- Fetch jobs
-- Score jobs
-- Fetch jobs and score
-- Exit
+- fetch jobs
+- score jobs
+- fetch jobs and score
+- exit
 
-If `DEEPSEEK_API_KEY` is set in your environment, `agent.py` will attempt to use the Deepseek model. Otherwise it runs locally.
+If you set `DEEPSEEK_API_KEY` in your environment, `agent.py` will try to use Deepseek. Otherwise it will run locally.
 
-## Helpful tips
+## Output files
 
-- Use a clear query such as `"data scientist"` or `"machine learning engineer"`.
-- Use `--location` for the city or region you want.
-- Use `--source naukri` or `--source indeed`.
-- Increase `--pages` if you want more results, but note that scraping takes longer.
-- Provide `--resume path/to/resume.pdf` to generate a shortlist.
+- `output/job_listings.json`: raw fetched job listings
+- `output/job_listings.csv`: raw job listings in spreadsheet format
+- `output/shortlist.json`: top scored job matches
+
+## Tips for success
+
+- Use a clear query like `"backend developer"` or `"data scientist"`.
+- Set the location using `--location` when you want results for a city or region.
+- Choose either `--source naukri` or `--source indeed`.
+- `--pages 1` is a good starting point; higher values gather more jobs but take longer.
+- Provide a valid resume path to get shortlist results.
 
 ## Important notes
 
-- This project scrapes websites, not official APIs.
-- Use the tool responsibly and follow each site’s terms of service.
-- The first scoring run may download the sentence-transformers model, which can take extra time.
+- This is a scraping tool, not an official API client.
+- Use it responsibly and follow the terms of service for Naukri and Indeed.
+- The first SBERT run may download a model and take extra time.
 
 ## Troubleshooting
 
-- Confirm the resume path is correct.
-- Confirm `output/job_listings.json` exists before using `--score-only`.
-- Make sure `output/` is writable.
-- Verify Python and pip are installed with `python --version` and `pip --version`.
+- If a command fails, check that the resume path is correct.
+- Make sure `output/job_listings.json` exists before using `--score-only`.
+- Ensure the `output/` folder is writable.
+- Confirm Python is installed with `python --version`.
 
 ## Example workflow
 
@@ -126,4 +135,4 @@ python job_fetcher.py "frontend developer" --location "Bangalore" --source naukr
 python pipeline_runner.py --score-only --jobs-json output/job_listings.json --resume path/to/resume.pdf --top 5 --out output/shortlist.json
 ```
 
-3. Open `output/shortlist.json` to see the top matching jobs.
+3. Review `output/shortlist.json` to see the best matches.
