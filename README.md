@@ -27,7 +27,7 @@ pip install -r requirments.txt
 ## Getting started
 
 ### 1. Fetch job listings only
-> Note: Before running this commands create an .env and store your API inside it and go to agent.py(14 line) and replace the "DEEPSEEK_API_KEY" with your variable name
+> Note: Before running this commands create an .env file and store your API inside it and go to agent.py(14 line) and replace the "DEEPSEEK_API_KEY" with your variable name
 
 Run `job_fetcher.py` with a search query, location, source, and page count.
 
