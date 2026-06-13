@@ -347,8 +347,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     jobs = fetch_and_save(args.query, args.location, args.source, args.pages)
-    print(f"Fetched {len(jobs)} jobs from {args.source}. Saved to output/job_listings.json and output/job_listings.csv.")
     print("It might be take around 20-25 minutes to complete his work")
+    print(f"Fetched {len(jobs)} jobs from {args.source}. Saved to output/job_listings.json and output/job_listings.csv.")
     if args.shortlist:
         if not args.resume:
             print("--shortlist requested but no --resume provided. Skipping scoring.")
