@@ -333,6 +333,7 @@ def fetch_and_save(query: str, location: Optional[str] = None, source: str = "na
 if __name__ == '__main__':
     import argparse
 
+
     parser = argparse.ArgumentParser(description="Fetch job listings from Naukri or Indeed.")
     parser.add_argument("query", help="Job search query, e.g. 'data scientist'.")
     parser.add_argument("--location", help="City or location.", default='New Delhi')
@@ -346,9 +347,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     jobs = fetch_and_save(args.query, args.location, args.source, args.pages)
-    print("It going to take around 20-25 minutes")
     print(f"Fetched {len(jobs)} jobs from {args.source}. Saved to output/job_listings.json and output/job_listings.csv.")
-
+    print("It might be take around 20-25 minutes to complete his work")
     if args.shortlist:
         if not args.resume:
             print("--shortlist requested but no --resume provided. Skipping scoring.")
